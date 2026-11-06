@@ -1,4 +1,4 @@
-// Renders xp.html to PNG with Electron:  npx electron assets/render.mjs   (hero.png)
+// Renders xp.html to PNG with Electron:  npx electron assets/render.mjs   (desktop.png)
 //                                         SHOT=taskbar npx electron assets/render.mjs   (taskbar.png)
 import { app, BrowserWindow } from 'electron';
 import { writeFileSync } from 'node:fs';
@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const taskbar = process.env.SHOT === 'taskbar';
-const [width, height, search, file] = taskbar ? [1280, 40, 'taskbar', 'taskbar.png'] : [1280, 720, '', 'hero.png'];
+const [width, height, search, file] = taskbar ? [1280, 40, 'taskbar', 'taskbar.png'] : [1280, 720, '', 'desktop.png'];
 const zoom = 1.5;
 
 app.whenReady().then(async () => {
