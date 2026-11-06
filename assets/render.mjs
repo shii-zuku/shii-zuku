@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const taskbar = process.env.SHOT === 'taskbar';
-const [width, height, search, file] = taskbar ? [1280, 40, 'taskbar', 'taskbar.png'] : [1280, 640, '', 'hero.png'];
-const zoom = 2;
+const [width, height, search, file] = taskbar ? [1280, 40, 'taskbar', 'taskbar.png'] : [1280, 820, '', 'hero.png'];
+const zoom = 1.5;
 
 app.whenReady().then(async () => {
   try {
