@@ -5,8 +5,9 @@
 <meta charset="utf-8" />
 <style>
   * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1280px; height: 820px; background: transparent; overflow: hidden; font-family: Tahoma, 'Segoe UI', Verdana, sans-serif; color: #000; }
-  .desk { position: relative; width: 1280px; height: 820px; overflow: hidden; background: linear-gradient(#1a56c9 0%, #2f78e0 24%, #5b9fea 44%, #9ccaf3 56%, #cfe6fa 64%); }
+  html, body { width: 1280px; height: 720px; background: transparent; overflow: hidden; font-family: Tahoma, 'Segoe UI', Verdana, sans-serif; color: #000; }
+  .desk { position: relative; width: 1280px; height: 720px; overflow: hidden; background: #3a82e0 none; }
+  .scene { position: absolute; left: 0; top: 0; }
   .cloud { position: absolute; border-radius: 50%; background: #fff; filter: blur(9px); }
   .land { position: absolute; left: 0; top: 0; width: 1280px; height: 820px; }
 
@@ -30,8 +31,8 @@
   .face { background: #ece9d8; }
 
   /* Notepad */
-  .notepad { left: 132px; top: 26px; width: 480px; }
-  .notepad .body { padding: 16px 20px 18px; height: 250px; font: 14px/1.5 'Lucida Console', Consolas, monospace; }
+  .notepad { left: 452px; top: 40px; width: 440px; }
+  .notepad .body { padding: 16px 20px 18px; height: 218px; font: 14px/1.5 'Lucida Console', Consolas, monospace; }
   .notepad h1 { font: bold 25px/1.1 'Trebuchet MS', Tahoma, sans-serif; color: #0b2a85; margin-bottom: 3px; }
   .notepad .sub { color: #555; margin-bottom: 12px; font-family: Tahoma, sans-serif; font-size: 12.5px; }
   .notepad li { list-style: none; margin: 2px 0; }
@@ -64,7 +65,7 @@
   .dialog .push { min-width: 92px; }
 
   /* Windows Media Player */
-  .wmp { left: 846px; top: 430px; width: 380px; }
+  .wmp { left: 520px; top: 340px; width: 380px; }
   .wmp .title { background: linear-gradient(#5d5d6a, #2c2c36 50%, #1b1b24); text-shadow: none; }
   .wmp .btn { background: radial-gradient(circle at 30% 25%, #8a8a99, #3b3b46 70%); }
   .wmp .btn.x { background: radial-gradient(circle at 30% 25%, #f2a086, #d3441f 70%); }
@@ -127,33 +128,102 @@
 </head>
 <body>
 <div class="desk">
-  <div class="cloud" style="left: 240px; top: 330px; width: 300px; height: 40px; opacity: .9"></div>
-  <div class="cloud" style="left: 140px; top: 352px; width: 220px; height: 34px; opacity: .8"></div>
-  <div class="cloud" style="left: 560px; top: 300px; width: 380px; height: 54px; opacity: .85"></div>
-  <div class="cloud" style="left: 660px; top: 282px; width: 200px; height: 46px; opacity: .95"></div>
-  <div class="cloud" style="left: 930px; top: 372px; width: 330px; height: 46px; opacity: .9"></div>
-  <div class="cloud" style="left: 1010px; top: 350px; width: 190px; height: 44px; opacity: .95"></div>
-  <div class="cloud" style="left: 880px; top: 24px; width: 420px; height: 88px; opacity: .75"></div>
-  <div class="cloud" style="left: 1010px; top: 4px; width: 250px; height: 70px; opacity: .8"></div>
-  <div class="cloud" style="left: 90px; top: 170px; width: 260px; height: 44px; opacity: .35"></div>
-  <svg class="land" viewBox="0 0 1280 820" preserveAspectRatio="none">
+  <svg class="scene" viewBox="0 0 1280 720" width="1280" height="720">
     <defs>
-      <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b3dc4a"/><stop offset=".28" stop-color="#86c230"/><stop offset=".62" stop-color="#58a01e"/><stop offset="1" stop-color="#2f6f12"/></linearGradient>
-      <radialGradient id="sun" cx=".34" cy=".1" r=".7"><stop offset="0" stop-color="#e4f57c" stop-opacity=".75"/><stop offset="1" stop-color="#e4f57c" stop-opacity="0"/></radialGradient>
-      <linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fb4c8"/><stop offset="1" stop-color="#6f9aa6"/></linearGradient>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1450c6"/><stop offset=".3" stop-color="#2a73dc"/><stop offset=".52" stop-color="#5f9eea"/><stop offset=".66" stop-color="#a6cef4"/><stop offset=".74" stop-color="#d9ebfb"/>
+      </linearGradient>
+      <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#c2e04f"/><stop offset=".22" stop-color="#97cc34"/><stop offset=".55" stop-color="#63a821"/><stop offset="1" stop-color="#2d6c10"/>
+      </linearGradient>
+      <radialGradient id="glow" cx=".3" cy=".08" r=".75"><stop offset="0" stop-color="#f0ff8a" stop-opacity=".8"/><stop offset=".6" stop-color="#d4f060" stop-opacity=".18"/><stop offset="1" stop-color="#d4f060" stop-opacity="0"/></radialGradient>
+      <linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#88aec6"/><stop offset="1" stop-color="#6c98a6"/></linearGradient>
+      <filter id="blades" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency=".9 .09" numOctaves="3" seed="4" result="t"/>
+        <feColorMatrix in="t" type="matrix" values="0 0 0 0 0.08  0 0 0 0 0.3  0 0 0 0 0.02  0 0 0 1.1 -0.38" result="c"/>
+        <feComposite in="c" in2="SourceGraphic" operator="in"/>
+      </filter>
+      <filter id="soft"><feGaussianBlur stdDeviation="26"/></filter>
+
+      <filter id="puff3" x="-30%" y="-40%" width="160%" height="180%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="5" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="64" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="3.2"/>
+      </filter>
+      <filter id="puff5" x="-30%" y="-40%" width="160%" height="180%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="5" seed="5" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="50" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="3.2"/>
+      </filter>
+      <filter id="puff7" x="-30%" y="-40%" width="160%" height="180%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="5" seed="7" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="40" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="3.2"/>
+      </filter>
+      <filter id="puff9" x="-30%" y="-40%" width="160%" height="180%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="5" seed="9" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="34" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="3.2"/>
+      </filter>
     </defs>
-    <path d="M820 548 C900 520 1000 505 1090 520 C1160 532 1220 520 1280 508 L1280 640 L820 640 Z" fill="url(#far)" opacity=".85"/>
-    <path d="M0 400 C220 382 470 410 760 470 C980 515 1130 545 1280 572 L1280 820 L0 820 Z" fill="url(#grass)"/>
-    <path d="M0 400 C220 382 470 410 760 470 C980 515 1130 545 1280 572 L1280 820 L0 820 Z" fill="url(#sun)"/>
-    <path d="M760 470 C960 520 1130 560 1280 600 L1280 820 L420 820 C560 700 640 540 760 470 Z" fill="#2f7a14" opacity=".32"/>
+    <rect width="1280" height="720" fill="url(#sky)"/>
+    
+    <g transform="translate(60 360)" filter="url(#puff5)">
+      <ellipse cx="170" cy="50.4" rx="170" ry="21" fill="#c3d6ee" opacity="0.7200000000000001"/>
+      <ellipse cx="102" cy="35" rx="81.6" ry="23.8" fill="#fff"/>
+      <ellipse cx="187.00000000000003" cy="26.6" rx="102" ry="29.4" fill="#fff"/>
+      <ellipse cx="265.2" cy="39.2" rx="74.8" ry="21" fill="#fff"/>
+      <ellipse cx="170" cy="43.4" rx="156.4" ry="18.2" fill="#f6f9fe"/>
+    </g>
+    
+    <g transform="translate(880 18)" filter="url(#puff3)">
+      <ellipse cx="210" cy="79.2" rx="210" ry="33" fill="#c3d6ee" opacity="0.8"/>
+      <ellipse cx="126" cy="55" rx="100.8" ry="37.400000000000006" fill="#fff"/>
+      <ellipse cx="231.00000000000003" cy="41.8" rx="126" ry="46.199999999999996" fill="#fff"/>
+      <ellipse cx="327.6" cy="61.60000000000001" rx="92.4" ry="33" fill="#fff"/>
+      <ellipse cx="210" cy="68.2" rx="193.20000000000002" ry="28.6" fill="#f6f9fe"/>
+    </g>
+    
+    <g transform="translate(460 270)" filter="url(#puff3)">
+      <ellipse cx="200" cy="66.24" rx="200" ry="27.599999999999998" fill="#c3d6ee" opacity="0.7200000000000001"/>
+      <ellipse cx="120" cy="46" rx="96" ry="31.28" fill="#fff"/>
+      <ellipse cx="220.00000000000003" cy="34.96" rx="120" ry="38.64" fill="#fff"/>
+      <ellipse cx="312" cy="51.52" rx="88" ry="27.599999999999998" fill="#fff"/>
+      <ellipse cx="200" cy="57.04" rx="184" ry="23.92" fill="#f6f9fe"/>
+    </g>
+    
+    <g transform="translate(900 330)" filter="url(#puff7)">
+      <ellipse cx="180" cy="57.599999999999994" rx="180" ry="24" fill="#c3d6ee" opacity="0.8"/>
+      <ellipse cx="108" cy="40" rx="86.39999999999999" ry="27.200000000000003" fill="#fff"/>
+      <ellipse cx="198.00000000000003" cy="30.4" rx="108" ry="33.6" fill="#fff"/>
+      <ellipse cx="280.8" cy="44.800000000000004" rx="79.2" ry="24" fill="#fff"/>
+      <ellipse cx="180" cy="49.6" rx="165.6" ry="20.8" fill="#f6f9fe"/>
+    </g>
+    
+    <g transform="translate(170 40)" filter="url(#puff9)">
+      <ellipse cx="130" cy="40.32" rx="130" ry="16.8" fill="#c3d6ee" opacity="0.5599999999999999"/>
+      <ellipse cx="78" cy="28" rx="62.4" ry="19.040000000000003" fill="#fff"/>
+      <ellipse cx="143" cy="21.28" rx="78" ry="23.52" fill="#fff"/>
+      <ellipse cx="202.8" cy="31.360000000000003" rx="57.2" ry="16.8" fill="#fff"/>
+      <ellipse cx="130" cy="34.72" rx="119.60000000000001" ry="14.56" fill="#f6f9fe"/>
+    </g>
+    
+    <g transform="translate(1030 160)" filter="url(#puff9)">
+      <ellipse cx="115" cy="31.68" rx="115" ry="13.2" fill="#c3d6ee" opacity="0.48"/>
+      <ellipse cx="69" cy="22" rx="55.199999999999996" ry="14.96" fill="#fff"/>
+      <ellipse cx="126.50000000000001" cy="16.72" rx="69" ry="18.48" fill="#fff"/>
+      <ellipse cx="179.4" cy="24.64" rx="50.6" ry="13.2" fill="#fff"/>
+      <ellipse cx="115" cy="27.28" rx="105.80000000000001" ry="11.440000000000001" fill="#f6f9fe"/>
+    </g>
+    <path d="M900 452 C960 440 1030 436 1100 444 C1170 452 1230 446 1280 438 L1280 520 L900 520 Z" fill="url(#far)" opacity=".55"/>
+    <path id="hill" d="M0 368 C230 350 520 372 800 428 C1010 470 1150 500 1280 528 L1280 720 L0 720 Z" fill="url(#grass)"/>
+    <path d="M0 368 C230 350 520 372 800 428 C1010 470 1150 500 1280 528 L1280 720 L0 720 Z" fill="url(#glow)"/>
+    <path d="M0 368 C230 350 520 372 800 428 C1010 470 1150 500 1280 528 L1280 720 L0 720 Z" fill="#fff" filter="url(#blades)" opacity=".5"/>
+    <path d="M820 430 C1000 478 1150 512 1280 560 L1280 720 L560 720 C700 600 740 470 820 430 Z" fill="#1f5c0c" opacity=".3" filter="url(#soft)"/>
   </svg>
 
-  <div class="icons">
-    <div class="icon"><span class="pic"><img src="./kurapify.svg" alt="" /></span>Kurapify</div>
-    <div class="icon"><span class="pic"><svg viewBox="0 0 48 48"><path d="M4 12a3 3 0 0 1 3-3h13l4 5h17a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#e8b22a"/><path d="M4 18h40v20a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#fbd75a"/><path d="M4 18h40v3H4z" fill="#fff" opacity=".35"/></svg></span>My Documents</div>
-    <div class="icon"><span class="pic"><svg viewBox="0 0 48 48"><rect x="6" y="7" width="36" height="25" rx="3" fill="#cfd6df" stroke="#7d8896"/><rect x="9" y="10" width="30" height="19" rx="1.5" fill="#3a82e8"/><path d="M9 10h30v8H9z" fill="#78b2ff" opacity=".6"/><path d="M17 32h14l3 8H14z" fill="#b8c0cb" stroke="#7d8896"/><rect x="12" y="40" width="24" height="3" rx="1.5" fill="#9aa5b3"/></svg></span>My Computer</div>
-    <div class="icon"><span class="pic"><svg viewBox="0 0 48 48"><path d="M12 14h24l-2.5 27a3 3 0 0 1-3 2.5h-13a3 3 0 0 1-3-2.5z" fill="#e4eaf2" stroke="#8793a3"/><path d="M9 14h30" stroke="#8793a3" stroke-width="3" stroke-linecap="round"/><path d="M20 9h8l1 5H19z" fill="#cfd8e4" stroke="#8793a3"/><path d="M19 22v15M24 22v15M29 22v15" stroke="#a3afbf" stroke-width="2"/></svg></span>Recycle Bin</div>
-  </div>
+  <div class="icon" style="position:absolute; right: 20px; top: 462px"><span class="pic"><svg viewBox="0 0 48 48"><path d="M12 14h24l-2.5 27a3 3 0 0 1-3 2.5h-13a3 3 0 0 1-3-2.5z" fill="#e4eaf2" stroke="#8793a3"/><path d="M9 14h30" stroke="#8793a3" stroke-width="3" stroke-linecap="round"/><path d="M20 9h8l1 5H19z" fill="#cfd8e4" stroke="#8793a3"/><path d="M19 22v15M24 22v15M29 22v15" stroke="#a3afbf" stroke-width="2"/></svg></span>Recycle Bin</div>
+  <div class="icon" style="position:absolute; left: 20px; top: 24px"><span class="pic"><img src="./kurapify.svg" alt="" /></span>Kurapify</div>
 
   <!-- about me.txt -->
   <div class="win notepad">
@@ -175,42 +245,6 @@
         <li><b>&gt;</b> Tools: TypeScript, React, Electron.</li>
         <li><b>&gt;</b> Say hi: open an issue, I read them.<span class="caret"></span></li>
       </ul>
-    </div>
-  </div>
-
-  <!-- System Properties -->
-  <div class="win props">
-    <div class="title">
-      <span class="name">System Properties</span>
-      <span class="btn help">?</span>
-      <span class="btn x"><svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
-    </div>
-    <div class="face">
-      <div class="tabs"><span class="tab">System Restore</span><span class="tab on">General</span><span class="tab">Computer Name</span><span class="tab">Hardware</span></div>
-      <div class="sheet">
-        <div class="logo"><img src="./kurapify.svg" alt="" /><b>kahraman</b><span style="font-size:11px;opacity:.85">Professional Edition</span></div>
-        <div><h3>System:</h3><p>kahraman, a.k.a. shii-zuku</p></div>
-        <div><h3>Registered to:</h3><p>movies, music, and<br/>getting the details right</p></div>
-        <div><h3>Installed programs:</h3><p>TypeScript &middot; React &middot; Electron</p></div>
-        <div><h3>In development:</h3><p><b>Kurapify</b>, a YouTube Music player<br/>dressed like Apple Music</p></div>
-        <div><h3>Status:</h3><p><i>Now playing: Deftones</i></p></div>
-      </div>
-      <div class="actions"><span class="push def">OK</span><span class="push">Cancel</span><span class="push">Apply</span></div>
-    </div>
-  </div>
-
-  <!-- the dialog -->
-  <div class="win dialog">
-    <div class="title">
-      <span class="name">Windows</span>
-      <span class="btn x"><svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
-    </div>
-    <div class="face">
-      <div class="row">
-        <svg class="warn" viewBox="0 0 32 32"><path d="M16 3l14 25H2z" fill="#ffd21a" stroke="#a37c00" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 11v9" stroke="#222" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="24" r="1.8" fill="#222"/></svg>
-        <p>It looks like you are visiting someone's GitHub profile.<br/>Would you like help?</p>
-      </div>
-      <div class="buttons"><span class="push def">Yes</span><span class="push">No</span><span class="push" style="min-width:150px">Stare at the hill</span></div>
     </div>
   </div>
 
@@ -277,8 +311,6 @@
       start
     </div>
     <div class="tb"><svg viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" rx="1" fill="#fff" stroke="#6c8ed8"/><path d="M4 5h8M4 8h8M4 11h6" stroke="#4d73c8"/></svg>about me.txt</div>
-    <div class="tb"><svg viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="10" rx="1" fill="#3a82e8" stroke="#fff"/></svg>System Properties</div>
-    <div class="tb on"><svg viewBox="0 0 16 16"><path d="M8 2l7 12H1z" fill="#ffd21a"/></svg>Windows</div>
     <div class="tb"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#ff8a2a"/><path d="M6 4.5v7l5.5-3.5z" fill="#fff"/></svg>Media Player</div>
     <div class="tray">
       <svg viewBox="0 0 16 16"><path d="M2 6h3l4-3v10L5 10H2z" fill="#fff"/><path d="M11 5.5a4 4 0 0 1 0 5" stroke="#fff" fill="none" stroke-width="1.4" stroke-linecap="round"/></svg>
