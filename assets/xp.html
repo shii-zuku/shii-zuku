@@ -1,0 +1,169 @@
+<!doctype html>
+<!-- The profile's Windows XP desktop, drawn in HTML and rendered to PNG by render.mjs (Electron). ?taskbar draws just the taskbar. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1280px; background: transparent; overflow: hidden; font-family: Tahoma, 'Segoe UI', Verdana, sans-serif; color: #000; }
+  .desk { position: relative; width: 1280px; height: 640px; overflow: hidden; background: linear-gradient(#2d6fd1 0%, #5b9be6 38%, #a9d3f6 62%, #d8ecfb 74%); }
+  /* Bliss: soft clouds over a green hill. */
+  .cloud { position: absolute; border-radius: 50%; background: #fff; filter: blur(14px); opacity: .85; }
+  .hill { position: absolute; border-radius: 50%; }
+  .hill.a { left: -240px; bottom: -330px; width: 1700px; height: 640px; background: radial-gradient(ellipse at 40% 20%, #8fd13a 0%, #5fa91f 45%, #3a7d12 100%); }
+  .hill.b { left: 420px; bottom: -470px; width: 1500px; height: 600px; background: radial-gradient(ellipse at 50% 10%, #7cc22c 0%, #4e9718 55%, #2f6b0f 100%); }
+
+  /* Desktop icons */
+  .icons { position: absolute; left: 22px; top: 18px; display: grid; gap: 14px; }
+  .icon { width: 84px; text-align: center; color: #fff; font-size: 12px; text-shadow: 1px 1px 2px #000; }
+  .icon .pic { width: 48px; height: 48px; margin: 0 auto 4px; display: block; filter: drop-shadow(1px 2px 2px rgba(0,0,0,.45)); }
+  .icon svg, .icon img { width: 48px; height: 48px; display: block; }
+
+  /* A Luna window */
+  .win { position: absolute; background: #0831d9; border-radius: 9px 9px 2px 2px; padding: 0 3px 3px; box-shadow: 3px 5px 16px rgba(0,0,0,.45), 0 0 0 1px #00138c; }
+  .title { height: 30px; margin: 0 -3px; padding: 0 5px 0 9px; display: flex; align-items: center; gap: 7px; border-radius: 8px 8px 0 0; color: #fff; font: bold 13px 'Trebuchet MS', Tahoma, sans-serif; text-shadow: 1px 1px 0 #0f1089;
+    background: linear-gradient(#0997ff 0%, #0053ee 9%, #0050ee 40%, #0066ff 88%, #0066ff 93%, #005bff 95%, #003dd7 96%, #003dd7 100%); }
+  .title .ico { width: 16px; height: 16px; flex: none; }
+  .title .name { flex: 1; white-space: nowrap; }
+  .btn { width: 22px; height: 22px; border-radius: 4px; border: 1px solid #fff; display: grid; place-items: center; flex: none; background: radial-gradient(circle at 30% 25%, #6d9bff, #2459e6 70%); }
+  .btn.x { background: radial-gradient(circle at 30% 25%, #f2a086, #d3441f 70%); }
+  .btn svg { width: 10px; height: 10px; }
+  .menu { background: #ece9d8; height: 22px; display: flex; gap: 14px; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 1px solid #d4d0c8; }
+  .body { background: #fff; }
+
+  .notepad { left: 138px; top: 52px; width: 560px; }
+  .notepad .body { padding: 18px 22px 20px; height: 322px; font: 14.5px/1.5 'Lucida Console', Consolas, monospace; }
+  .notepad h1 { font: bold 26px/1.1 'Trebuchet MS', Tahoma, sans-serif; color: #0b2a85; margin-bottom: 4px; }
+  .notepad .sub { color: #555; margin-bottom: 14px; font-family: Tahoma, sans-serif; font-size: 13px; }
+  .notepad li { list-style: none; margin: 3px 0; }
+  .notepad li b { color: #c1360f; }
+  .caret { display: inline-block; width: 8px; height: 15px; background: #000; vertical-align: -2px; }
+
+  .wmp { left: 742px; top: 118px; width: 430px; }
+  .wmp .title { background: linear-gradient(#5d5d6a, #2c2c36 50%, #1b1b24); text-shadow: none; }
+  .wmp .btn { background: radial-gradient(circle at 30% 25%, #8a8a99, #3b3b46 70%); }
+  .wmp .btn.x { background: radial-gradient(circle at 30% 25%, #f2a086, #d3441f 70%); }
+  .wmp .body { background: radial-gradient(ellipse at 50% 0%, #1e3d78, #0a1730 70%); padding: 14px 16px 14px; color: #cfe3ff; height: 236px; position: relative; }
+  .wmp .viz { height: 96px; display: flex; align-items: flex-end; gap: 3px; border-radius: 4px; background: #04101f; padding: 8px 10px; box-shadow: inset 0 0 0 1px #1b4c8f; }
+  .wmp .viz i { flex: 1; background: linear-gradient(#b8ff5a, #2fb82f); border-radius: 1px; }
+  .wmp .now { margin-top: 12px; font-size: 13px; }
+  .wmp .now b { display: block; font-size: 16px; color: #fff; margin-bottom: 2px; }
+  .seek { margin-top: 12px; height: 8px; border-radius: 4px; background: #0b2f66; box-shadow: inset 0 0 0 1px #2a6ac0; position: relative; }
+  .seek i { position: absolute; left: 0; top: 0; bottom: 0; width: 38%; border-radius: 4px; background: linear-gradient(#9dff62, #36b52f); }
+  .seek u { position: absolute; left: 38%; top: -4px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #9dc7ff); box-shadow: 0 0 0 1px #2a6ac0; }
+  .ctrl { margin-top: 16px; display: flex; gap: 10px; align-items: center; }
+  .ctrl span { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 25%, #6fb1ff, #1d5ed1 70%); box-shadow: 0 0 0 1px #0a3c93; }
+  .ctrl span.play { width: 38px; height: 38px; background: radial-gradient(circle at 35% 25%, #b6ff7a, #2ea62b 70%); box-shadow: 0 0 0 1px #14641a; }
+  .ctrl svg { width: 12px; height: 12px; fill: #fff; }
+
+  /* Taskbar */
+  .taskbar { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; display: flex; align-items: center;
+    background: linear-gradient(#245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%); box-shadow: inset 0 1px 0 #5c97f5; }
+  .start { height: 40px; padding: 0 22px 0 12px; display: flex; align-items: center; gap: 7px; border-radius: 0 14px 14px 0; color: #fff; font: italic bold 24px 'Trebuchet MS', Tahoma, sans-serif; text-shadow: 1px 2px 2px rgba(0,0,0,.5);
+    background: linear-gradient(#5fbe5f 0%, #3c9c3c 12%, #2f8a2f 50%, #36953a 88%, #2a7a2a 100%); box-shadow: inset -2px 0 3px rgba(0,0,0,.25), inset 0 2px 2px rgba(255,255,255,.35); }
+  .flag { width: 24px; height: 24px; display: grid; grid-template: 1fr 1fr / 1fr 1fr; gap: 1px; transform: skewX(-6deg) rotate(-4deg); }
+  .flag i { border-radius: 3px 1px 3px 1px; }
+  .tb { margin-left: 8px; height: 30px; width: 190px; padding: 0 10px; display: flex; align-items: center; gap: 7px; border-radius: 4px; color: #fff; font-size: 13px; background: linear-gradient(#4a8cf2, #2e6ad9); box-shadow: inset 0 0 0 1px #1d4bb5; }
+  .tb.on { background: linear-gradient(#1c4fc4, #2a5fd3); box-shadow: inset 1px 1px 3px rgba(0,0,0,.4), inset 0 0 0 1px #173b96; }
+  .tb img, .tb svg { width: 16px; height: 16px; flex: none; }
+  .tray { margin-left: auto; height: 40px; padding: 0 14px; display: flex; align-items: center; gap: 10px; color: #fff; font-size: 13px; background: linear-gradient(#0f99f0, #1090e8 8%, #0d7fd6 50%, #0b74c9); box-shadow: inset 1px 0 0 #07509c; }
+  .tray svg { width: 15px; height: 15px; }
+
+  body.bar .desk { height: 40px; background: transparent; }
+  body.bar .taskbar { height: 40px; }
+</style>
+</head>
+<body>
+<script>if (location.search.includes('taskbar')) document.body.classList.add('bar');</script>
+<div class="desk">
+  <div class="cloud" style="left: 120px; top: 70px; width: 300px; height: 70px"></div>
+  <div class="cloud" style="left: 230px; top: 48px; width: 220px; height: 70px"></div>
+  <div class="cloud" style="left: 880px; top: 40px; width: 360px; height: 80px"></div>
+  <div class="cloud" style="left: 1010px; top: 22px; width: 220px; height: 60px"></div>
+  <div class="cloud" style="left: 560px; top: 150px; width: 260px; height: 50px; opacity: .6"></div>
+  <div class="hill a"></div>
+  <div class="hill b"></div>
+
+  <div class="icons">
+    <div class="icon">
+      <span class="pic"><img src="./kurapify.svg" alt="" /></span>
+      Kurapify
+    </div>
+    <div class="icon">
+      <span class="pic"><svg viewBox="0 0 48 48"><path d="M4 12a3 3 0 0 1 3-3h13l4 5h17a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#e8b22a"/><path d="M4 18h40v20a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#fbd75a"/><path d="M4 18h40v3H4z" fill="#fff" opacity=".35"/></svg></span>
+      My Documents
+    </div>
+    <div class="icon">
+      <span class="pic"><svg viewBox="0 0 48 48"><rect x="6" y="7" width="36" height="25" rx="3" fill="#cfd6df" stroke="#7d8896"/><rect x="9" y="10" width="30" height="19" rx="1.5" fill="#3a82e8"/><path d="M9 10h30v8H9z" fill="#78b2ff" opacity=".6"/><path d="M17 32h14l3 8H14z" fill="#b8c0cb" stroke="#7d8896"/><rect x="12" y="40" width="24" height="3" rx="1.5" fill="#9aa5b3"/></svg></span>
+      My Computer
+    </div>
+    <div class="icon">
+      <span class="pic"><svg viewBox="0 0 48 48"><path d="M12 14h24l-2.5 27a3 3 0 0 1-3 2.5h-13a3 3 0 0 1-3-2.5z" fill="#e4eaf2" stroke="#8793a3"/><path d="M9 14h30" stroke="#8793a3" stroke-width="3" stroke-linecap="round"/><path d="M20 9h8l1 5H19z" fill="#cfd8e4" stroke="#8793a3"/><path d="M19 22v15M24 22v15M29 22v15" stroke="#a3afbf" stroke-width="2"/></svg></span>
+      Recycle Bin
+    </div>
+  </div>
+
+  <div class="win notepad">
+    <div class="title">
+      <svg class="ico" viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" rx="1" fill="#fff" stroke="#6c8ed8"/><path d="M4 5h8M4 8h8M4 11h6" stroke="#4d73c8"/></svg>
+      <span class="name">about me.txt - Notepad</span>
+      <span class="btn"><svg viewBox="0 0 10 10"><rect x="1" y="7" width="6" height="2" fill="#fff"/></svg></span>
+      <span class="btn"><svg viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="#fff" stroke-width="1.6"/></svg></span>
+      <span class="btn x"><svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
+    </div>
+    <div class="menu"><span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span></div>
+    <div class="body">
+      <h1>Hi, I'm kahraman</h1>
+      <div class="sub">a.k.a. shii-zuku &middot; welcome to my desktop</div>
+      <ul>
+        <li><b>&gt;</b> I make things for music and the desktop.</li>
+        <li><b>&gt;</b> Right now: Kurapify, a YouTube Music</li>
+        <li>&nbsp;&nbsp;player dressed like Apple Music.</li>
+        <li><b>&gt;</b> Tools: TypeScript, React, Electron.</li>
+        <li><b>&gt;</b> Taste: a bit of everything, loudly.</li>
+        <li><b>&gt;</b> Say hi: open an issue, I read them.<span class="caret"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="win wmp">
+    <div class="title">
+      <svg class="ico" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#ff8a2a"/><path d="M6 4.5v7l5.5-3.5z" fill="#fff"/></svg>
+      <span class="name">Windows Media Player</span>
+      <span class="btn"><svg viewBox="0 0 10 10"><rect x="1" y="7" width="6" height="2" fill="#fff"/></svg></span>
+      <span class="btn"><svg viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="#fff" stroke-width="1.6"/></svg></span>
+      <span class="btn x"><svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span>
+    </div>
+    <div class="body">
+      <div class="viz" id="viz"></div>
+      <div class="now"><b>Now playing</b>my favourite song, on repeat</div>
+      <div class="seek"><i></i><u></u></div>
+      <div class="ctrl">
+        <span><svg viewBox="0 0 12 12"><path d="M2 1h2v10H2zM10 1v10L5 6z"/></svg></span>
+        <span class="play"><svg viewBox="0 0 12 12"><path d="M3 1l8 5-8 5z"/></svg></span>
+        <span><svg viewBox="0 0 12 12"><path d="M8 1h2v10H8zM2 1l5 5-5 5z"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="taskbar">
+    <div class="start">
+      <span class="flag"><i style="background:#f35325"></i><i style="background:#81bc06"></i><i style="background:#05a6f0"></i><i style="background:#ffba08"></i></span>
+      start
+    </div>
+    <div class="tb on"><svg viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" rx="1" fill="#fff" stroke="#6c8ed8"/><path d="M4 5h8M4 8h8M4 11h6" stroke="#4d73c8"/></svg>about me.txt</div>
+    <div class="tb"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#ff8a2a"/><path d="M6 4.5v7l5.5-3.5z" fill="#fff"/></svg>Media Player</div>
+    <div class="tray">
+      <svg viewBox="0 0 16 16"><path d="M2 6h3l4-3v10L5 10H2z" fill="#fff"/><path d="M11 5.5a4 4 0 0 1 0 5" stroke="#fff" fill="none" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 16 16"><rect x="1" y="5" width="14" height="8" rx="1" fill="#fff" opacity=".9"/><rect x="3" y="2" width="10" height="4" fill="#fff" opacity=".6"/></svg>
+      12:00 PM
+    </div>
+  </div>
+</div>
+<script>
+  // The visualiser bars: fixed heights, so the picture is the same every time it is drawn.
+  const heights = [34, 58, 74, 52, 80, 44, 66, 88, 56, 72, 40, 62, 84, 50, 70, 46, 78, 60, 38, 68, 54, 82, 48, 64, 36, 72, 58, 44];
+  document.getElementById('viz').innerHTML = heights.map((h) => `<i style="height:${h}%"></i>`).join('');
+</script>
+</body>
+</html>
